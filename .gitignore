@@ -5,6 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
+data_exploration/Data_exploration_.ipynb
 
 # Distribution / packaging
 .Python
