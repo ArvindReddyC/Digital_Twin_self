@@ -4,6 +4,7 @@ from json import JSONEncoder
 import requests
 import matplotlib.pyplot as plt 
 import time
+import joblib
 
 from sklearn.neighbors import KNeighborsRegressor
 
@@ -28,6 +29,9 @@ def get_data(id,attri):
     '''
     
     #Change the start data and End Data for longer duration 
+    start_date = '2021-01-01 00:00:00' 
+    end_date  = '2021-12-31 00:00:00'
+    
     query = {'id':id,'attributes':attri,'startDate':start_date,'endDate':end_date}
     query = DateTimeEncoder().encode(query)
     query = eval(query)
@@ -48,7 +52,8 @@ def get_data(id,attri):
 
 def KNN_training(  ):
     df = get_data('WP_HVW_SWB.1J07_PM_WestFdr,WP_SF_MVPS4.WS1','Active Power,Irradiance Global (W/m^2),Back-of-Module Temperature 2 (deg C)')
-    subset_df = df['Active Power,Irradiance Global (W/m^2),Back-of-Module Temperature 2 (deg C)'].astype(float)
+    subset_df = df[['Irradiance Global (W/m^2)','Back-of-Module Temperature 2 (deg C)']].astype(float)
+    dependent = df['Active Power'].astype(float)
     print(subset_df.dtypes)
     X_train, X_test, y_train, y_test = train_test_split(subset_df , dependent ,
     test_size=0.25) 
@@ -61,3 +66,4 @@ def KNN_training(  ):
     return joblib.load('model_KNN.pkl')
 
 
+KNN_training(  )

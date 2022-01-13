@@ -3,12 +3,12 @@ import numpy as np
 import joblib
 
 
-def predict_act_power(   resource_flag , user_inputs = {}):
+def predict_act_power(   resource_flag , user_inputs = {} ):
     '''
         for testing comment this before production.
     '''
     user_inputs = {'measurementtimestamp': ['some_date', 'some_date', 'some_date'],
-                   'irradiance': [400, 520 , 715] }
+                   'irradiance': [400, 520 , 715]  }
 
     print('Predicting User Inputs')
     df_user = pd.DataFrame(data=user_inputs)
@@ -21,7 +21,7 @@ def predict_act_power(   resource_flag , user_inputs = {}):
     elif(resource_flag == 'model_bk2' ):
         model = joblib.load('model_bk2.pkl')
     elif(resource_flag == 'model_bk3' ):
-        model = joblib.load('model_bk1.pkl')
+        model = joblib.load('model_bk3.pkl')
     elif(resource_flag == 'model_inv1' ):
         model = joblib.load('model_inv1.pkl')
     elif(resource_flag == 'model_inv2' ):
