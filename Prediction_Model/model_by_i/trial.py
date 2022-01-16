@@ -21,7 +21,7 @@ def predict_act_power( user_inputs = {} ):
     '''
    
     #model = joblib.load('/Users/arvindchandrasekarreddy/Desktop/PythonProjects/Digital_Twin_self/Prediction_Model/model_by_i/model_two_ip')
-    with open('/Users/arvindchandrasekarreddy/Desktop/PythonProjects/Digital_Twin_self/Prediction_Model/model_by_i/model_two_ip','rb') as file:
+    with open('model_two_ip','rb') as file:
         model = pickle.load(file)
     #model = pickle.load(open('/Users/arvindchandrasekarreddy/Desktop/PythonProjects/Digital_Twin_self/Prediction_Model/model_by_i/model_two_ip.sav', 'rb'))
     '''
@@ -31,7 +31,7 @@ def predict_act_power( user_inputs = {} ):
     #regressor = model
     print(df_user[['irradiance','temperature']].to_numpy())
     
-    y_user = model.predict(df_user[['irradiance','temperature']])
+    y_user = model.predict(df_user[['irradiance','temperature']].to_numpy())
 
     predicted_activePower = pd.DataFrame(data=y_user , columns=["ActivePowerPrediction"] , index = user_inputs['measurementtimestamp'] )
     predicted_activePower.index.name = 'measurementtimestamp'
@@ -45,4 +45,3 @@ def predict_act_power( user_inputs = {} ):
 predict_act_power({'measurementtimestamp': ['some_date', 'some_date', 'some_date'],
                 'irradiance': [400, 520 , 715], 
                 'temperature': [20, 24, 25]} )
-#resouce flag indicates from where the data is coming from.? 
